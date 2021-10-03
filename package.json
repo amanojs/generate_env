@@ -1,5 +1,5 @@
 {
-  "name": "generate_env",
+  "name": "@amanojs/generate_env",
   "version": "1.0.0",
   "description": ".envテンプレートと.envの差分を自動更新することができるnpmパッケージです。",
   "main": "./build/index.js",
