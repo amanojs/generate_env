@@ -1,4 +1,6 @@
+#!/usr/bin/env node
 "use strict";
+/** 2021/10/03 takashi */
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -87,21 +89,23 @@ function genEnvFile() {
                         errorLog(ENVBASE_NAME + "\u30D5\u30A1\u30A4\u30EB\u304C\u898B\u3064\u304B\u308A\u307E\u305B\u3093\u3002\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306Eroot\u30C7\u30A3\u30EC\u30AF\u30C8\u30EA\u306B" + ENVBASE_NAME + "\u30D5\u30A1\u30A4\u30EB\u3092\u4F5C\u6210\u3057\u3066\u304F\u3060\u3055\u3044\u3002");
                     }
                     is_exists_env = fs.existsSync(ENV_NAME);
-                    if (!!is_exists_env) return [3, 1];
+                    if (!!is_exists_env) return [3 /*break*/, 1];
+                    // .envファイルがまだ存在していない場合
                     copyEnvBase();
                     successLog(ENV_NAME + "\u30D5\u30A1\u30A4\u30EB\u306E\u751F\u6210\u306B\u6210\u529F\u3057\u305F\u3088");
-                    return [3, 3];
-                case 1: return [4, genUpdatedEnvLines()];
+                    return [3 /*break*/, 3];
+                case 1: return [4 /*yield*/, genUpdatedEnvLines()];
                 case 2:
                     new_lines = _a.sent();
                     writeEnvFile(new_lines);
                     successLog(ENV_NAME + "\u30D5\u30A1\u30A4\u30EB\u306E\u66F4\u65B0\u306B\u6210\u529F\u3057\u305F\u3088");
                     _a.label = 3;
-                case 3: return [2];
+                case 3: return [2 /*return*/];
             }
         });
     });
 }
+/** .env.baseファイルを.envファイルの名前でコピーする関数。 */
 function copyEnvBase() {
     try {
         fs.copyFileSync(ENVBASE_NAME, ENV_NAME);
@@ -110,6 +114,10 @@ function copyEnvBase() {
         errorLog(ENVBASE_NAME + "\u30D5\u30A1\u30A4\u30EB\u306E\u30B3\u30D4\u30FC\u306B\u5931\u6557\u3057\u307E\u3057\u305F\u3002");
     }
 }
+/**
+ * @returns string[]
+ * 新しい.envファイルに書き込む文字列を行ごとの配列にして返す関数。
+ */
 function genUpdatedEnvLines() {
     var e_1, _a, e_2, _b;
     return __awaiter(this, void 0, void 0, function () {
@@ -127,36 +135,36 @@ function genUpdatedEnvLines() {
                     _h.trys.push([1, 6, 7, 12]);
                     env_lines_1 = __asyncValues(env_lines);
                     _h.label = 2;
-                case 2: return [4, env_lines_1.next()];
+                case 2: return [4 /*yield*/, env_lines_1.next()];
                 case 3:
-                    if (!(env_lines_1_1 = _h.sent(), !env_lines_1_1.done)) return [3, 5];
+                    if (!(env_lines_1_1 = _h.sent(), !env_lines_1_1.done)) return [3 /*break*/, 5];
                     env_line = env_lines_1_1.value;
                     if (ENV_FORMAT_REG.test(env_line) === false) {
-                        return [3, 4];
+                        return [3 /*break*/, 4];
                     }
                     env_line_space_escaped = env_line.replace(/\s/, '');
                     env_line_splited = env_line_space_escaped.split('=');
                     env_line_obj = { env_key: env_line_splited[0], env_val: env_line_splited[1] };
                     env_line_objs.push(env_line_obj);
                     _h.label = 4;
-                case 4: return [3, 2];
-                case 5: return [3, 12];
+                case 4: return [3 /*break*/, 2];
+                case 5: return [3 /*break*/, 12];
                 case 6:
                     e_1_1 = _h.sent();
                     e_1 = { error: e_1_1 };
-                    return [3, 12];
+                    return [3 /*break*/, 12];
                 case 7:
                     _h.trys.push([7, , 10, 11]);
-                    if (!(env_lines_1_1 && !env_lines_1_1.done && (_a = env_lines_1.return))) return [3, 9];
-                    return [4, _a.call(env_lines_1)];
+                    if (!(env_lines_1_1 && !env_lines_1_1.done && (_a = env_lines_1.return))) return [3 /*break*/, 9];
+                    return [4 /*yield*/, _a.call(env_lines_1)];
                 case 8:
                     _h.sent();
                     _h.label = 9;
-                case 9: return [3, 11];
+                case 9: return [3 /*break*/, 11];
                 case 10:
                     if (e_1) throw e_1.error;
-                    return [7];
-                case 11: return [7];
+                    return [7 /*endfinally*/];
+                case 11: return [7 /*endfinally*/];
                 case 12:
                     envbase_stream = fs.createReadStream(ENVBASE_NAME);
                     envbase_lines = readline.createInterface({ input: envbase_stream });
@@ -166,12 +174,12 @@ function genUpdatedEnvLines() {
                     _h.trys.push([13, 18, 19, 24]);
                     envbase_lines_1 = __asyncValues(envbase_lines);
                     _h.label = 14;
-                case 14: return [4, envbase_lines_1.next()];
+                case 14: return [4 /*yield*/, envbase_lines_1.next()];
                 case 15:
-                    if (!(envbase_lines_1_1 = _h.sent(), !envbase_lines_1_1.done)) return [3, 17];
+                    if (!(envbase_lines_1_1 = _h.sent(), !envbase_lines_1_1.done)) return [3 /*break*/, 17];
                     envbase_line = envbase_lines_1_1.value;
                     if (ENV_FORMAT_REG.test(envbase_line) === false) {
-                        return [3, 16];
+                        return [3 /*break*/, 16];
                     }
                     envbase_line_space_escaped = envbase_line.replace(/\s/, '');
                     envbase_line_splited = envbase_line_space_escaped.split('=');
@@ -199,29 +207,32 @@ function genUpdatedEnvLines() {
                         new_env_lines.push(envbase_line_key + '=');
                     }
                     _h.label = 16;
-                case 16: return [3, 14];
-                case 17: return [3, 24];
+                case 16: return [3 /*break*/, 14];
+                case 17: return [3 /*break*/, 24];
                 case 18:
                     e_2_1 = _h.sent();
                     e_2 = { error: e_2_1 };
-                    return [3, 24];
+                    return [3 /*break*/, 24];
                 case 19:
                     _h.trys.push([19, , 22, 23]);
-                    if (!(envbase_lines_1_1 && !envbase_lines_1_1.done && (_b = envbase_lines_1.return))) return [3, 21];
-                    return [4, _b.call(envbase_lines_1)];
+                    if (!(envbase_lines_1_1 && !envbase_lines_1_1.done && (_b = envbase_lines_1.return))) return [3 /*break*/, 21];
+                    return [4 /*yield*/, _b.call(envbase_lines_1)];
                 case 20:
                     _h.sent();
                     _h.label = 21;
-                case 21: return [3, 23];
+                case 21: return [3 /*break*/, 23];
                 case 22:
                     if (e_2) throw e_2.error;
-                    return [7];
-                case 23: return [7];
-                case 24: return [2, new_env_lines];
+                    return [7 /*endfinally*/];
+                case 23: return [7 /*endfinally*/];
+                case 24: return [2 /*return*/, new_env_lines];
             }
         });
     });
 }
+/**
+ * 文字列を行ごとに区切ってある配列をもらい、ファイルに書き込む。
+ */
 function writeEnvFile(env_lines) {
     var e_4, _a;
     try {
