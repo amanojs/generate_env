@@ -1,0 +1,16 @@
+{
+  "name": "generate_env",
+  "version": "1.0.0",
+  "description": ".envテンプレートと.envの差分を自動更新することができるnpmパッケージです。",
+  "main": "./build/index.js",
+  "author": "amanojs",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^16.10.2",
+    "tsc": "^2.0.3"
+  },
+  "scripts": {
+    "build": "tsc --downlevelIteration"
+  }
+}
