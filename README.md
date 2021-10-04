@@ -2,6 +2,18 @@
 
 環境変数テンプレートファイル と 環境変数ファイル の差分を自動更新することができる npm パッケージです。
 
+## インストール
+
+```shell
+# npm
+npm install --save-dev @amanojs/generate_env
+```
+
+```shell
+# yarn
+yarn add --dev @amanojs/generate_env
+```
+
 ## 利点
 
 - プロジェクトをクローンしてきたばかりでも、コマンド一つで必要な項目が全てそろっている環境変数ファイルを適切な名前で生成できる。
